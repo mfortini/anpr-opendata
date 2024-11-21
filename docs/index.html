@@ -90,12 +90,12 @@ const parseDate = (d) => d3.timeFormat("%Y-%m-%d")(new Date(d));
 return {parseDate};
 }});
 
-define({id: "37a1c6cc", inputs: ["resize","Plot","dati_residenti_ratio_regioni","parseDate","display"], outputs: ["plotRegioni"], body: (resize,Plot,dati_residenti_ratio_regioni,parseDate,display) => {
+define({id: "1f42e50f", inputs: ["resize","Plot","dati_residenti_ratio_regioni","parseDate","display"], outputs: ["plotRegioni"], body: (resize,Plot,dati_residenti_ratio_regioni,parseDate,display) => {
 const plotRegioni = resize((width) => Plot.plot({
       color: {legend: true},
       title: "Andamento relativo della popolazione totale delle regioni",
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio_regioni, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "REGIONE", tip: false}),
@@ -145,14 +145,14 @@ const dati_residenti_ratio_province = await sql`WITH DATI_RESIDENTI AS (SELECT  
 return {dati_residenti_ratio_province};
 }});
 
-define({id: "a2b5c73e", inputs: ["resize","Plot","filt_regione","filt_provincia","dati_residenti_ratio_province","parseDate","display"], body: async (resize,Plot,filt_regione,filt_provincia,dati_residenti_ratio_province,parseDate,display) => {
+define({id: "3a595273", inputs: ["resize","Plot","filt_regione","filt_provincia","dati_residenti_ratio_province","parseDate","display"], body: async (resize,Plot,filt_regione,filt_provincia,dati_residenti_ratio_province,parseDate,display) => {
 display(await(
     resize((width) => Plot.plot({
       color: {legend: true},
       title: "Andamento relativo della popolazione totale delle Province",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:""),
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio_province, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "PROVINCIA", tip: false}),
@@ -172,14 +172,14 @@ const dati_residenti_ratio = await sql`WITH DATI_RESIDENTI AS (SELECT  "DATA ELA
 return {dati_residenti_ratio};
 }});
 
-define({id: "c0e694d3", inputs: ["filt_comune","resize","Plot","filt_regione","filt_provincia","dati_residenti_ratio","parseDate","display","dati_residenti"], body: (filt_comune,resize,Plot,filt_regione,filt_provincia,dati_residenti_ratio,parseDate,display,dati_residenti) => {
+define({id: "af0a0da4", inputs: ["filt_comune","resize","Plot","filt_regione","filt_provincia","dati_residenti_ratio","parseDate","display","dati_residenti"], body: (filt_comune,resize,Plot,filt_regione,filt_provincia,dati_residenti_ratio,parseDate,display,dati_residenti) => {
 if (filt_comune == "--TUTTI--") {
     const chart = resize((width) => Plot.plot({
       color: {legend: true},
       title: "Andamento relativo della popolazione dei Comuni",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:"") + ((filt_comune != "--TUTTI--")?" | Comune " + filt_comune:""),
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "COMUNE", tip: false}),
@@ -216,7 +216,7 @@ if (filt_comune == "--TUTTI--") {
 <div class="observablehq observablehq--block"><!--:ff09b5ee:--></div>
 <div class="observablehq observablehq--block"><!--:126fedb2:--></div>
 <div class="observablehq observablehq--block"><!--:58af8afd:--></div>
-<div class="observablehq observablehq--block"><!--:37a1c6cc:--></div>
+<div class="observablehq observablehq--block"><!--:1f42e50f:--></div>
 <div class="observablehq observablehq--block"><!--:b6a780e7:--></div>
 <div class="observablehq observablehq--block"><!--:2ee694c6:--></div>
 <div class="observablehq observablehq--block"><!--:08cb3e34:--></div>
@@ -224,12 +224,12 @@ if (filt_comune == "--TUTTI--") {
 <div class="observablehq observablehq--block"><!--:8b2aa729:--></div>
 <div class="observablehq observablehq--block"><!--:ebdc2f4d:--></div>
 <div class="observablehq observablehq--block"><!--:3bfbbe5c:--></div>
-<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:a2b5c73e:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:3a595273:--></div>
 <div class="observablehq observablehq--block"><!--:280b93c1:--></div>
-<div class="observablehq observablehq--block"><!--:c0e694d3:--></div>
+<div class="observablehq observablehq--block"><!--:af0a0da4:--></div>
 </main>
 <footer id="observablehq-footer">
-<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-11-21T12:48:25">Nov 21, 2024</a>.</div>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-11-21T15:10:49">Nov 21, 2024</a>.</div>
 </footer>
 </div>
 </body>

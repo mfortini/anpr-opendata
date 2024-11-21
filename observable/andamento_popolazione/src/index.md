@@ -30,7 +30,7 @@ const plotRegioni = resize((width) => Plot.plot({
       color: {legend: true},
       title: "Andamento relativo della popolazione totale delle regioni",
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio_regioni, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "REGIONE", tip: false}),
@@ -78,7 +78,7 @@ WITH DATI_RESIDENTI AS (SELECT  "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", SUM
       title: "Andamento relativo della popolazione totale delle Province",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:""),
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio_province, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "PROVINCIA", tip: false}),
@@ -106,7 +106,7 @@ if (filt_comune == "--TUTTI--") {
       title: "Andamento relativo della popolazione dei Comuni",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:"") + ((filt_comune != "--TUTTI--")?" | Comune " + filt_comune:""),
       width,
-      y: {grid: true, label: "Residenti"},
+      y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
         Plot.lineY(dati_residenti_ratio, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "COMUNE", tip: false}),
