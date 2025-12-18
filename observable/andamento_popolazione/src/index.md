@@ -9,15 +9,15 @@ sql:
 
 
 ```sql id=dati_residenti 
-SELECT  "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE", RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
+SELECT  "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE", RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
  AND (PROVINCIA=${filt_provincia} OR ${filt_provincia} = '--TUTTE--') AND (COMUNE=${filt_comune} OR ${filt_comune} = '--TUTTI--') 
- ORDER BY "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE"
+ ORDER BY "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE"
 ```
 
 ```sql id=dati_residenti_ratio_regioni 
-WITH DATI_RESIDENTI AS (SELECT  "DATA ELABORAZIONE", "REGIONE", SUM(RESIDENTI) AS RESIDENTI FROM residenti  GROUP BY "DATA ELABORAZIONE", REGIONE
- ORDER BY "DATA ELABORAZIONE", "REGIONE")
- SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, FIRST (RESIDENTI ORDER BY "DATA ELABORAZIONE" ) AS FIRST_RESIDENTI FROM DATI_RESIDENTI
+WITH DATI_RESIDENTI AS (SELECT  "DATA_ELABORAZIONE", "REGIONE", SUM(RESIDENTI) AS RESIDENTI FROM residenti  GROUP BY "DATA_ELABORAZIONE", REGIONE
+ ORDER BY "DATA_ELABORAZIONE", "REGIONE")
+ SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, FIRST (RESIDENTI ORDER BY "DATA_ELABORAZIONE" ) AS FIRST_RESIDENTI FROM DATI_RESIDENTI
  GROUP BY REGIONE) AS DATI_RESIDENTI_FIRST ON DATI_RESIDENTI.REGIONE=DATI_RESIDENTI_FIRST.REGIONE
 ```
 
@@ -33,8 +33,8 @@ const plotRegioni = resize((width) => Plot.plot({
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
-        Plot.lineY(dati_residenti_ratio_regioni, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "REGIONE", tip: false}),
-        Plot.tip(dati_residenti_ratio_regioni, Plot.pointerX({x: "DATA ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA ELABORAZIONE"]), d["REGIONE"], d["RESIDENTI"]].join("\n")}))
+        Plot.lineY(dati_residenti_ratio_regioni, {x: "DATA_ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "REGIONE", tip: false}),
+        Plot.tip(dati_residenti_ratio_regioni, Plot.pointerX({x: "DATA_ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA_ELABORAZIONE"]), d["REGIONE"], d["RESIDENTI"]].join("\n")}))
       ]
     }));
 display(plotRegioni);
@@ -65,10 +65,10 @@ const filt_comune = view(Inputs.select(["--TUTTI--"].concat(comuni.toArray().map
 ```
 
 ```sql id=dati_residenti_ratio_province 
-WITH DATI_RESIDENTI AS (SELECT  "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", SUM(RESIDENTI) AS RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
- AND (PROVINCIA=${filt_provincia} OR ${filt_provincia} = '--TUTTE--') GROUP BY "DATA ELABORAZIONE", REGIONE, PROVINCIA
- ORDER BY "DATA ELABORAZIONE", "REGIONE", "PROVINCIA")
- SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, PROVINCIA, FIRST (RESIDENTI ORDER BY "DATA ELABORAZIONE" ) AS FIRST_RESIDENTI FROM DATI_RESIDENTI
+WITH DATI_RESIDENTI AS (SELECT  "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA", SUM(RESIDENTI) AS RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
+ AND (PROVINCIA=${filt_provincia} OR ${filt_provincia} = '--TUTTE--') GROUP BY "DATA_ELABORAZIONE", REGIONE, PROVINCIA
+ ORDER BY "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA")
+ SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, PROVINCIA, FIRST (RESIDENTI ORDER BY "DATA_ELABORAZIONE" ) AS FIRST_RESIDENTI FROM DATI_RESIDENTI
  GROUP BY REGIONE, PROVINCIA) AS DATI_RESIDENTI_FIRST ON DATI_RESIDENTI.REGIONE=DATI_RESIDENTI_FIRST.REGIONE AND DATI_RESIDENTI.PROVINCIA=DATI_RESIDENTI_FIRST.PROVINCIA
 ```
 
@@ -81,18 +81,18 @@ WITH DATI_RESIDENTI AS (SELECT  "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", SUM
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
-        Plot.lineY(dati_residenti_ratio_province, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "PROVINCIA", tip: false}),
-        Plot.tip(dati_residenti_ratio_province, Plot.pointerX({x: "DATA ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA ELABORAZIONE"]), d["PROVINCIA"], d["COMUNE"], d["RESIDENTI"]].join("\n")}))
+        Plot.lineY(dati_residenti_ratio_province, {x: "DATA_ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "PROVINCIA", tip: false}),
+        Plot.tip(dati_residenti_ratio_province, Plot.pointerX({x: "DATA_ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA_ELABORAZIONE"]), d["PROVINCIA"], d["COMUNE"], d["RESIDENTI"]].join("\n")}))
       ]
     }))
 ```
 
 
 ```sql id=dati_residenti_ratio 
-WITH DATI_RESIDENTI AS (SELECT  "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE", RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
+WITH DATI_RESIDENTI AS (SELECT  "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE", RESIDENTI FROM residenti WHERE REGIONE=${filt_regione} 
  AND (PROVINCIA=${filt_provincia} OR ${filt_provincia} = '--TUTTE--') AND (COMUNE=${filt_comune} OR ${filt_comune} = '--TUTTI--') 
- ORDER BY "DATA ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE")
- SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, PROVINCIA, COMUNE, FIRST (RESIDENTI ORDER BY "DATA ELABORAZIONE") AS FIRST_RESIDENTI FROM DATI_RESIDENTI
+ ORDER BY "DATA_ELABORAZIONE", "REGIONE", "PROVINCIA", "COMUNE")
+ SELECT *, RESIDENTI/FIRST_RESIDENTI - 1. AS RATIO_RESIDENTI FROM DATI_RESIDENTI JOIN (SELECT REGIONE, PROVINCIA, COMUNE, FIRST (RESIDENTI ORDER BY "DATA_ELABORAZIONE") AS FIRST_RESIDENTI FROM DATI_RESIDENTI
  GROUP BY REGIONE, PROVINCIA, COMUNE) AS DATI_RESIDENTI_FIRST ON DATI_RESIDENTI.REGIONE=DATI_RESIDENTI_FIRST.REGIONE AND DATI_RESIDENTI.PROVINCIA=DATI_RESIDENTI_FIRST.PROVINCIA AND
  DATI_RESIDENTI.COMUNE=DATI_RESIDENTI_FIRST.COMUNE
 ```
@@ -109,8 +109,8 @@ if (filt_comune == "--TUTTI--") {
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
-        Plot.lineY(dati_residenti_ratio, {x: "DATA ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "COMUNE", tip: false}),
-        Plot.tip(dati_residenti_ratio, Plot.pointerX({x: "DATA ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA ELABORAZIONE"]), d["PROVINCIA"], d["COMUNE"], d["RESIDENTI"]].join("\n")}))
+        Plot.lineY(dati_residenti_ratio, {x: "DATA_ELABORAZIONE",interval: "day", y: "RATIO_RESIDENTI", stroke: "COMUNE", tip: false}),
+        Plot.tip(dati_residenti_ratio, Plot.pointerX({x: "DATA_ELABORAZIONE", y: "RATIO_RESIDENTI", title: (d) => [parseDate(d["DATA_ELABORAZIONE"]), d["PROVINCIA"], d["COMUNE"], d["RESIDENTI"]].join("\n")}))
       ]
     }));
     display(chart);
@@ -122,7 +122,7 @@ if (filt_comune == "--TUTTI--") {
       y: {grid: true, label: "Residenti"},
       marks: [
         Plot.ruleY([]),
-        Plot.lineY(dati_residenti, {x: "DATA ELABORAZIONE", interval: "day", y: "RESIDENTI", z: "COMUNE", tip: true})
+        Plot.lineY(dati_residenti, {x: "DATA_ELABORAZIONE", interval: "day", y: "RESIDENTI", z: "COMUNE", tip: true})
       ]
     }));
     display(chart);
