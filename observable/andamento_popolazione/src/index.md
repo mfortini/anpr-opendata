@@ -76,6 +76,7 @@ const plotRegioni = resize((width) => Plot.plot({
       color: {legend: true},
       title: region_diff_mode ? "Andamento relativo della popolazione totale delle regioni - Differenza rispetto alla media nazionale" : "Andamento relativo della popolazione totale delle regioni",
       width,
+      marginRight: 80,
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
@@ -96,6 +97,14 @@ const plotRegioni = resize((width) => Plot.plot({
             strokeWidth: 3,
             tip: false
         }),
+        Plot.text(dati_residenti_ratio_regioni, Plot.selectLast({
+            filter: (d) => d.REGIONE === "Italia",
+            x: "DATA_ELABORAZIONE",
+            y: region_diff_mode ? "RATIO_DIFF" : "RATIO_RESIDENTI",
+            text: "REGIONE",
+            textAnchor: "start",
+            dx: 5
+        })),
         Plot.tip(dati_residenti_ratio_regioni, Plot.pointerX({
             x: "DATA_ELABORAZIONE",
             y: region_diff_mode ? "RATIO_DIFF" : "RATIO_RESIDENTI",
@@ -187,9 +196,10 @@ const province_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Regione
 ```js
     resize((width) => Plot.plot({
       color: {legend: true},
-      title: province_diff_mode ? "Andamento relativo della popolazione - Differenza rispetto alla media regionale" : "Andamento relativo della popolazione totale delle Province",
+      title: province_diff_mode ? "Andamento relativo della popolazione totale delle Province - Differenza rispetto alla media regionale" : "Andamento relativo della popolazione totale delle Province",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:""),
       width,
+      marginRight: 240,
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
       marks: [
         Plot.ruleY([]),
@@ -210,6 +220,14 @@ const province_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Regione
             strokeWidth: 3,
             tip: false
         }),
+        Plot.text(dati_residenti_ratio_province, Plot.selectLast({
+            filter: (d) => d.PROVINCIA === "Regione " + filt_regione,
+            x: "DATA_ELABORAZIONE",
+            y: province_diff_mode ? "RATIO_DIFF" : "RATIO_RESIDENTI",
+            text: "PROVINCIA",
+            textAnchor: "start",
+            dx: 5
+        })),
         Plot.tip(dati_residenti_ratio_province, Plot.pointerX({
             x: "DATA_ELABORAZIONE", 
             y: province_diff_mode ? "RATIO_DIFF" : "RATIO_RESIDENTI",
