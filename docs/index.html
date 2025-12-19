@@ -135,10 +135,10 @@ const region_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Italia", 
 return {region_diff_mode};
 }});
 
-define({id: "ba6f6fa2", inputs: ["resize","Plot","region_diff_mode","dati_residenti_ratio_regioni","parseDate","display"], outputs: ["plotRegioni"], body: (resize,Plot,region_diff_mode,dati_residenti_ratio_regioni,parseDate,display) => {
+define({id: "a98b73bf", inputs: ["resize","Plot","region_diff_mode","dati_residenti_ratio_regioni","parseDate","display"], outputs: ["plotRegioni"], body: (resize,Plot,region_diff_mode,dati_residenti_ratio_regioni,parseDate,display) => {
 const plotRegioni = resize((width) => Plot.plot({
       color: {legend: true},
-      title: region_diff_mode ? "Andamento relativo della popolazione totale delle regioni - Differenza rispetto alla media nazionale" : "Andamento relativo della popolazione totale delle regioni",
+      title: region_diff_mode ? "Andamento relativo della popolazione totale delle regioni - Differenza rispetto alla media nazionale (evidenzia gli spostamenti interni)" : "Andamento relativo della popolazione totale delle regioni",
       width,
       marginRight: 80,
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
@@ -266,11 +266,11 @@ const province_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Regione
 return {province_diff_mode};
 }});
 
-define({id: "e810c7ef", inputs: ["resize","Plot","province_diff_mode","filt_regione","filt_provincia","dati_residenti_ratio_province","parseDate","display"], body: async (resize,Plot,province_diff_mode,filt_regione,filt_provincia,dati_residenti_ratio_province,parseDate,display) => {
+define({id: "7d3fee8b", inputs: ["resize","Plot","province_diff_mode","filt_regione","filt_provincia","dati_residenti_ratio_province","parseDate","display"], body: async (resize,Plot,province_diff_mode,filt_regione,filt_provincia,dati_residenti_ratio_province,parseDate,display) => {
 display(await(
     resize((width) => Plot.plot({
       color: {legend: true},
-      title: province_diff_mode ? "Andamento relativo della popolazione totale delle Province - Differenza rispetto alla media regionale" : "Andamento relativo della popolazione totale delle Province",
+      title: province_diff_mode ? "Andamento relativo della popolazione totale delle Province - Differenza rispetto alla media regionale (evidenzia gli spostamenti interni)" : "Andamento relativo della popolazione totale delle Province",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:""),
       width,
       marginRight: 240,
@@ -367,7 +367,7 @@ if (filt_comune == "--TUTTI--") {
 <div class="observablehq observablehq--block"><!--:89463b47:--></div>
 <div class="observablehq observablehq--block"><!--:58af8afd:--></div>
 <div class="observablehq observablehq--block"><!--:071efb91:--></div>
-<div class="observablehq observablehq--block"><!--:ba6f6fa2:--></div>
+<div class="observablehq observablehq--block"><!--:a98b73bf:--></div>
 <div class="observablehq observablehq--block"><!--:b6a780e7:--></div>
 <div class="observablehq observablehq--block"><!--:2ee694c6:--></div>
 <div class="observablehq observablehq--block"><!--:08cb3e34:--></div>
@@ -376,12 +376,12 @@ if (filt_comune == "--TUTTI--") {
 <div class="observablehq observablehq--block"><!--:ebdc2f4d:--></div>
 <div class="observablehq observablehq--block"><!--:74bbf041:--></div>
 <div class="observablehq observablehq--block"><!--:a1df00dc:--></div>
-<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:e810c7ef:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:7d3fee8b:--></div>
 <div class="observablehq observablehq--block"><!--:7ca29452:--></div>
 <div class="observablehq observablehq--block"><!--:5475c49b:--></div>
 </main>
 <footer id="observablehq-footer">
-<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-12-18T16:06:08">Dec 18, 2025</a>.</div>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-12-19T10:30:50">Dec 19, 2025</a>.</div>
 </footer>
 </div>
 </body>

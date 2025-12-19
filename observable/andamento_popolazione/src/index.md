@@ -74,7 +74,7 @@ const region_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Italia", 
 ```js
 const plotRegioni = resize((width) => Plot.plot({
       color: {legend: true},
-      title: region_diff_mode ? "Andamento relativo della popolazione totale delle regioni - Differenza rispetto alla media nazionale" : "Andamento relativo della popolazione totale delle regioni",
+      title: region_diff_mode ? "Andamento relativo della popolazione totale delle regioni - Differenza rispetto alla media nazionale (evidenzia gli spostamenti interni)" : "Andamento relativo della popolazione totale delle regioni",
       width,
       marginRight: 80,
       y: {grid: true, label: "Variazione Residenti (%)", percent: true},
@@ -196,7 +196,7 @@ const province_diff_mode = view(Inputs.toggle({label: "Sottrai andamento Regione
 ```js
     resize((width) => Plot.plot({
       color: {legend: true},
-      title: province_diff_mode ? "Andamento relativo della popolazione totale delle Province - Differenza rispetto alla media regionale" : "Andamento relativo della popolazione totale delle Province",
+      title: province_diff_mode ? "Andamento relativo della popolazione totale delle Province - Differenza rispetto alla media regionale (evidenzia gli spostamenti interni)" : "Andamento relativo della popolazione totale delle Province",
       subtitle: "Regione " + filt_regione + ((filt_provincia != "--TUTTE--")?" | Provincia " + filt_provincia:""),
       width,
       marginRight: 240,
