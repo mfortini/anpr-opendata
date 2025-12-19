@@ -67,7 +67,7 @@ import {define} from "./_observablehq/client.ca32d101.js";
 import {registerFile, FileAttachment} from "./_observablehq/stdlib.bd1ab7c4.js";
 import {registerTable} from "./_observablehq/stdlib/duckdb.20461150.js";
 
-registerFile("./data/residenti.parquet", {"name":"./data/residenti.parquet","path":"./_file/data/residenti.0693b464.parquet","lastModified":1766068075154,"size":45278680});
+registerFile("./data/residenti.parquet", {"name":"./data/residenti.parquet","path":"./_file/data/residenti.0693b464.parquet.gz","lastModified":1766068075154,"size":45278680});
 registerTable("residenti", FileAttachment("./data/residenti.parquet"));
 
 define({id: "b0cdbb80", inputs: ["sql","filt_regione","filt_provincia","filt_comune"], outputs: ["dati_residenti"], body: async (sql,filt_regione,filt_provincia,filt_comune) => {
